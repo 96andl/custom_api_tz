@@ -1,4 +1,10 @@
 {
+  "require": {
+    "symfony/console": "^4.1",
+    "fzaninotto/faker": "^1.7"
+  },
+  "name": "Custom/API",
+  "description": "TZ FOR MG Vintage.",
   "autoload": {
     "psr-4": {
       "App\\": "./app",

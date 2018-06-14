@@ -1,0 +1,15 @@
+#!/usr/bin/env php
+
+<?php
+
+use Symfony\Component\Console\Application;
+use App\Console\GenerateFakeUsersCommand;
+
+require __DIR__. '/vendor/autoload.php';
+
+
+$app = new Application("Stubs generator");
+
+$app->addCommands([new GenerateFakeUsersCommand]);
+
+$app->run();
