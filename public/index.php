@@ -6,4 +6,4 @@
  * Time: 11:08 PM
  */
 
-echo "HELLO WORLD";
+require '../core/bootstrap.php';
