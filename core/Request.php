@@ -24,16 +24,36 @@ class Request
 
     public function input($parameter)
     {
-        return $_REQUEST[$parameter];
+        return $this->params()[$parameter];
     }
 
     public function hasInput($parameter)
     {
-        return isset($_REQUEST[$parameter]);
+        return isset($this->params()[$parameter]);
     }
 
     public function inputs()
     {
-        return $_REQUEST;
+        return $this->params();
+    }
+
+    private function params()
+    {
+        if (isset($_SERVER['CONTENT_TYPE']) and strpos($_SERVER['CONTENT_TYPE'], 'application/json') !== false) {
+
+            if (in_array($_SERVER['REQUEST_METHOD'], ['GET', 'POST'])) {
+                return $_REQUEST;
+            } else if (in_array($_SERVER['REQUEST_METHOD'], ['PUT', 'PATCH', 'DELETE'])) {
+                return json_decode(file_get_contents("php://input"), true);
+            }
+        }
+
+        if (in_array($_SERVER['REQUEST_METHOD'], ['GET', 'POST'])) {
+            return $_REQUEST;
+        } else if (in_array($_SERVER['REQUEST_METHOD'], ['PUT', 'PATCH', 'DELETE'])) {
+            parse_str(file_get_contents("php://input"), $params);
+            return $params;
+        }
+        throw new \Exception("Unknown http METHOD");
     }
 }

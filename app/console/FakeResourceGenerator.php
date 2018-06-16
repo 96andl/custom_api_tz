@@ -19,7 +19,7 @@ class FakeResourceGenerator extends Command
 {
 
     private $faker;
-    const DEFAULT_RESOURCES_COUNT = 50;
+    const DEFAULT_RESOURCES_COUNT = 5;
     const RESOURCE_STUB_PATH = 'stubs/resources.json';
 
     public function __construct()

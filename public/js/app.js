@@ -1,3 +1,11 @@
+Vue.component('products-form', {
+    data: function () {
+        return {
+            visible: false
+        }
+    },
+});
+
 Vue.component('products', {
     data: function () {
         return {
@@ -16,21 +24,24 @@ Vue.component('products', {
     },
 
     methods: {
-        randomArray: function(a, b) {
+        randomArray: function (a, b) {
             return Math.random() - 0.5;
         },
 
         shuffle: function () {
             this.products.sort(this.randomArray);
         },
-        remove: function (id) {
-            axios.delete('resource')
+        remove: function (index, id) {
+            var context = this;
+            axios.delete('resource', {
+                data:
+                    {id: id}
+            })
                 .then(function () {
-                    alert("OK");
+                    context.products.splice(index, 1);
                 })
-                .catch(function ()
-                {
-                    alert("ERROR");
+                .catch(function (error) {
+                    console.log(error);
                 })
         }
 

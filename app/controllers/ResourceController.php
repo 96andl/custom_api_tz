@@ -9,7 +9,9 @@
 namespace App\controllers;
 
 
+use App\Models\Products;
 use Core\Request;
+use Core\Response;
 
 class ResourceController
 {
@@ -23,7 +25,12 @@ class ResourceController
 
     public function store()
     {
+        $request = new Request();
+        if (Products::save($request->inputs())) {
+            return redirect('/');
+        }
 
+        Response::send([], null, 500);
     }
 
     public function show()
@@ -38,14 +45,18 @@ class ResourceController
 
     public function destroy()
     {
-        $request = Request::make();
+        $request = new Request();
 
-        if($request->hasInput('id'))
-        {
-            $resources = file_get_contents('../stubs/resources.json');
-            dd($resources);
+        if ($request->hasInput('id')) {
+            $product_id = $request->input('id');
+            if (Products::delete($product_id)) {
+                Response::send([], null, 200);
+            }
+            Response::send(['message' => 'Id not found'], null, 404);
         }
-        echo "HELLO MEN";
+
+        Response::send(['message' => 'product id is not provided'], null, 500);
+
     }
 
 

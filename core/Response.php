@@ -11,14 +11,17 @@ namespace Core;
 
 class Response
 {
-    public static function send($data, $headers, $code = 200)
+    public static function send($data, $headers = null, $code = 200)
     {
-        foreach ($headers as $header) {
-            header($header);
+        if (!is_null($headers)) {
+            foreach ($headers as $header) {
+                header($header);
+            }
         }
 
         http_response_code($code);
 
-        echo $data;
+        echo json_encode($data);
+        exit();
     }
 }

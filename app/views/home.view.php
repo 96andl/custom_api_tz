@@ -33,6 +33,46 @@
                 </div>
             </div>
 
+            <div class="container">
+                <div class="row">
+                    <products-form inline-template>
+                        <div class="mb-5">
+                            <button class="btn btn-info" @click="visible = !visible">Create Product</button>
+                            <form class="w-100" v-if="visible" method="post" action="/resource">
+                                <div class="form-group">
+                                    <label for="category">Category</label>
+                                    <input type="text" name="category" class="form-control" id="category">
+                                </div>
+                                <div class="form-group">
+                                    <label for="brand_name">Brand Name</label>
+                                    <input type="text" name="brand_name" class="form-control" id="brand_name">
+                                </div>
+                                <div class="form-group">
+                                    <label for="brand_name">Product Name</label>
+                                    <input type="text" name="product_name" class="form-control" id="product_name">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="brand_name">Name</label>
+                                    <input type="text" name="name" class="form-control" id="name">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="brand_name">Description</label>
+                                    <input type="text" name="description" class="form-control" id="description">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="brand_name">Price</label>
+                                    <input type="text" name="price" class="form-control" id="price">
+                                </div>
+
+                                <button type="submit" class="btn btn-primary">Submit</button>
+                            </form>
+                        </div>
+                    </products-form>
+                </div>
+            </div>
 
             <products inline-template>
                 <div class="container">
@@ -40,13 +80,17 @@
                     <!-- Example row of columns -->
                     <div id="items-wrapper" class="row">
                         <transition-group name="product" tag="div" class="row">
-                            <div class="col-md-4" v-for="product in products" :key="product.id" class="product">
+                            <div class="col-md-4" v-for="(product, index) in products" :key="product.id"
+                                 class="product">
                                 <h2>{{product.brand_name}} </h2>
                                 <p> {{product.description}} </p>
                                 <p>
                                     <img :src="product.image" alt="" class="w-100">
                                     <a class="btn btn-secondary" href="#" role="button">View details</a>
-                                    <button class="btn btn-danger" href="#" @click="remove" role="button">Delete</button>
+                                    <button class="btn btn-danger" href="#" @click="remove(index,product.id)"
+                                            role="button">
+                                        Delete
+                                    </button>
                                 </p>
                             </div>
                         </transition-group>
