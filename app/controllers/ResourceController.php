@@ -12,6 +12,7 @@ namespace App\controllers;
 use App\Models\Products;
 use Core\Request;
 use Core\Response;
+use Core\Validator;
 
 class ResourceController
 {
@@ -26,6 +27,18 @@ class ResourceController
     public function store()
     {
         $request = new Request();
+
+        $inputs = $request->inputs();
+
+        Validator::validate($inputs, [
+            'category' => 'required',
+            'brand_name' => 'required',
+            'product_name' => 'required',
+            'name' => 'required',
+            'description' => 'required',
+            'price' => 'required',
+        ]);
+
         if (Products::save($request->inputs())) {
             return redirect('/');
         }

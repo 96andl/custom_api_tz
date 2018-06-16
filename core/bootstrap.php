@@ -11,4 +11,9 @@ use Core\Router;
 
 require '../vendor/autoload.php';
 
+if( !session_id() )
+{
+    session_start();
+}
+
 Router::load('../app/routes.php')->direct(Request::uri(), Request::method());

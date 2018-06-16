@@ -1,3 +1,6 @@
+<?php use Core\Session;
+
+?>
 <!doctype html>
 <html lang="en">
 <head>
@@ -11,7 +14,9 @@
     <link rel="stylesheet" href="css/app.css">
 </head>
 <body>
-<?php include 'header.php' ?>
+
+
+include 'header.php' ?>
 <div id="app">
     <div id="application-wrapper">
 
@@ -66,7 +71,15 @@
                                     <label for="brand_name">Price</label>
                                     <input type="text" name="price" class="form-control" id="price">
                                 </div>
-
+                                <?php if (!is_null($errors = Session::getFlash('errors'))): ?>
+                                    <div class="alert alert-danger">
+                                        <ul>
+                                            <?php foreach ($errors['errors'] as $error): ?>
+                                                <li><?= $error ?></li>
+                                            <?php endforeach ?>
+                                        </ul>
+                                    </div>
+                                <?php endif ?>
                                 <button type="submit" class="btn btn-primary">Submit</button>
                             </form>
                         </div>
