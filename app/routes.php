@@ -7,3 +7,5 @@
  */
 
 $router->get('', '\\App\\controllers\\IndexController@home');
+$router->get('resource', '\\App\\controllers\\ResourceController@index');
+$router->delete('resource', '\\App\\controllers\\ResourceController@destroy');

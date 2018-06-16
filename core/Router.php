@@ -40,6 +40,11 @@ class Router
         $this->routes['POST'][$uri] = $controller;
     }
 
+    public function delete($uri, $controller)
+    {
+        $this->routes['DELETE'][$uri] = $controller;
+    }
+
     public function direct($uri, $requestMethod)
     {
         if (array_key_exists($uri, $this->routes[$requestMethod])) {
@@ -49,7 +54,7 @@ class Router
             );
         }
 
-        throw  new Exception('No route defined for this URI');
+        throw  new \Exception('No route defined for this URI');
     }
 
     public function callAction($className, $action)

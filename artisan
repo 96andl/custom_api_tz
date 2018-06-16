@@ -4,12 +4,13 @@
 
 use Symfony\Component\Console\Application;
 use App\Console\GenerateFakeUsersCommand;
+use App\Console\FakeResourceGenerator;
 
 require __DIR__. '/vendor/autoload.php';
 
 
 $app = new Application("Stubs generator");
 
-$app->addCommands([new GenerateFakeUsersCommand]);
+$app->addCommands([new GenerateFakeUsersCommand, new FakeResourceGenerator]);
 
 $app->run();

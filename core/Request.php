@@ -21,4 +21,19 @@ class Request
     {
         return $_SERVER['REQUEST_METHOD'];
     }
+
+    public function input($parameter)
+    {
+        return $_REQUEST[$parameter];
+    }
+
+    public function hasInput($parameter)
+    {
+        return isset($_REQUEST[$parameter]);
+    }
+
+    public function inputs()
+    {
+        return $_REQUEST;
+    }
 }

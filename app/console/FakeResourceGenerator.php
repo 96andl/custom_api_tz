@@ -1,6 +1,13 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: andrew
+ * Date: 6/16/18
+ * Time: 12:36 PM
+ */
 
-namespace App\Console;
+namespace App\console;
+
 
 use Faker\Factory;
 use Symfony\Component\Console\Command\Command;
@@ -8,17 +15,12 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-/**
- * Created by PhpStorm.
- * User: andrew
- * Date: 6/14/18
- * Time: 2:19 AM
- */
-class GenerateFakeUsersCommand extends Command
+class FakeResourceGenerator extends Command
 {
+
     private $faker;
-    const DEFAULT_RESOURCES_COUNT = 1000;
-    const RESOURCE_STUB_PATH = 'stubs/users.json';
+    const DEFAULT_RESOURCES_COUNT = 50;
+    const RESOURCE_STUB_PATH = 'stubs/resources.json';
 
     public function __construct()
     {
@@ -28,10 +30,10 @@ class GenerateFakeUsersCommand extends Command
 
     protected function configure()
     {
-        $this->setName('app:users')
-            ->setDescription('creates a bunch of users')
-            ->setHelp("This command allows you to create a bunch of users")
-            ->addArgument('users', InputArgument::OPTIONAL, "Count of users", self::DEFAULT_RESOURCES_COUNT);
+        $this->setName('app:resource')
+            ->setDescription('creates a bunch of resources')
+            ->setHelp("This command allows you to create a bunch of resources")
+            ->addArgument('resources', InputArgument::OPTIONAL, "Count of resource", self::DEFAULT_RESOURCES_COUNT);
     }
 
     public function execute(InputInterface $input, OutputInterface $output, $data = [], $index = 0)
@@ -46,8 +48,14 @@ class GenerateFakeUsersCommand extends Command
         for (; $index < $resourcesCount; $index++) {
             $data[] = (object)array(
                 "id" => $index,
+                "product_id" => $this->faker->randomNumber,
+                'category' => $this->faker->name,
+                'brand_name' => $this->faker->company,
+                'product_name' => $this->faker->company,
                 "name" => $this->faker->name,
-                "description" => $this->faker->sentence
+                "description" => $this->faker->sentence,
+                'price' => $this->faker->randomFloat,
+                'image' => $this->faker->imageUrl($width = 640, $height = 480)
             );
         }
 

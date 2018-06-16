@@ -1,0 +1,12 @@
+.product-move {
+    transition: transform 1s;
+}
+
+.product-enter, .product-leave-to
+    /* .list-complete-leave-active до версии 2.1.8 */ {
+    opacity: 0;
+    transform: translateY(30px);
+}
+.product-leave-active {
+    position: absolute;
+}
