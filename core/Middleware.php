@@ -13,6 +13,7 @@ class Middleware
 {
     public function auth()
     {
-        redirect('/login');
+        if(!Auth::check() and Request::uri() !== 'login')
+            redirect('/login');
     }
 }

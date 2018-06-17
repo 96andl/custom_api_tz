@@ -21,6 +21,11 @@ class Session
         throw new \Exception("Session parameter key can't be empty");
     }
 
+    public static function set($name, $value)
+    {
+        $_SESSION[$name] = $value;
+    }
+
     public static function get($name)
     {
         if (!empty($_SESSION[$name])) {
