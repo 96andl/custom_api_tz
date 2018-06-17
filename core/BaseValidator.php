@@ -22,6 +22,28 @@ class BaseValidator
         return true;
     }
 
+    public function alpha($inputs, $inputName)
+    {
+        if (!ctype_alpha($inputs[$inputName])) {
+            $this->errors[] = "$inputName must be alphabetic";
+        }
+    }
+
+
+    public function alpha_num($inputs, $inputName)
+    {
+        if (!ctype_alnum($inputs[$inputName])) {
+            $this->errors[] = "$inputName must be alpha-numeric";
+        }
+    }
+
+    public function number($inputs, $inputName)
+    {
+        if (!ctype_digit($inputs[$inputName])) {
+            $this->errors[] = "$inputName must be number";
+        }
+    }
+
     public function returnErrors()
     {
         $data = [
@@ -38,4 +60,5 @@ class BaseValidator
         redirect('/');
 
     }
+
 }

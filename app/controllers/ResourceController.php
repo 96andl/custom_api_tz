@@ -36,7 +36,7 @@ class ResourceController
             'product_name' => 'required',
             'name' => 'required',
             'description' => 'required',
-            'price' => 'required',
+            'price' => 'required|number',
         ]);
 
         if (Products::save($request->inputs())) {
