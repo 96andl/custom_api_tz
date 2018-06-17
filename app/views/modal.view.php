@@ -54,6 +54,11 @@ use Core\Session;
                                             <input type="text" name="price" v-model="price" class="form-control"
                                                    id="price">
                                         </div>
+                                        <div class="form-group">
+                                            <label for="image">Price</label>
+                                            <input type="file" name="image" class="form-control" id="image" onchange="readURL(this, '#image-preview')">
+                                            <img :src="'/storage'+image" alt="" id="image-preview">
+                                        </div>
                                         <?php if (!is_null($errors = Session::getFlash('errors'))): ?>
                                             <div class="alert alert-danger">
                                                 <ul>

@@ -1,10 +1,9 @@
 const EventBus = new Vue();
 
-
 Vue.component('modal', {
     data: function () {
         return {
-            showModal: false
+            showModal: false,
         }
     },
 
@@ -30,6 +29,7 @@ Vue.component('products-form', {
             description: null,
             price: null,
             errorMessage: null,
+            image: null,
             errors: []
         }
     },
@@ -55,6 +55,7 @@ Vue.component('products-form', {
             this.name = this.products[index].name;
             this.description = this.products[index].description;
             this.price = this.products[index].price;
+            this.image = this.products[index].image;
         },
 
         update: function () {
