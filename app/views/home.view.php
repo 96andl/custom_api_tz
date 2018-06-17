@@ -40,6 +40,7 @@
                         <div class="mb-5 w-100">
                             <button class="btn btn-info" @click="visible = !visible">Create Product</button>
                             <form class="w-100" v-if="visible" method="post" enctype="multipart/form-data" action="/product">
+                                <input type="hidden" name="product_id" :value="product_id">
                                 <div class="form-group">
                                     <label for="category">Category</label>
                                     <input type="text" name="category" class="form-control" id="category">

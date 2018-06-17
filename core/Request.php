@@ -59,6 +59,8 @@ class Request
 
     public function file($name)
     {
+        if (!isset($_FILES[$name]))
+            return null;
         return $_FILES[$name]['size'] !== 0 ? $_FILES[$name] : null;
     }
 

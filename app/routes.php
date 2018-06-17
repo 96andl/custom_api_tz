@@ -12,7 +12,7 @@ $router->get('', "{$controllersPath}IndexController@home")->middleware('auth');
 $router->get('product', "{$controllersPath}ProductsController@index");
 $router->delete('product', "{$controllersPath}ProductsController@destroy");
 $router->post('product', "{$controllersPath}ProductsController@store");
-$router->put('product', "{$controllersPath}ProductsController@update");
+$router->post('product/update', "{$controllersPath}ProductsController@update");
 
 $router->get('login', "{$controllersPath}LoginController@index");
 $router->post('login', "{$controllersPath}LoginController@login");

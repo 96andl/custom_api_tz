@@ -39,18 +39,18 @@ class Products
         $products = json_decode(file_get_contents(Products::RESOURCE_STUB_PATH), true);
         foreach ($products as $key => $product) {
             if ($product['id'] == $product_id) {
-                $products[$key] = self::changeProduct($products, $data, $product_id);
+                $products[$key] = self::changeProduct($products, $data, $product);
                 file_put_contents(Products::RESOURCE_STUB_PATH, json_encode($products));
                 return $products[$key];
             }
         }
     }
 
-    private static function changeProduct($existedProducts, $data, $product_id = null)
+    private static function changeProduct($existedProducts, $data, $product = null)
     {
-        return
+        $res =
             [
-                "id" => is_null($product_id) ? $existedProducts[count($existedProducts) - 1]['id'] + 1 : $product_id,
+                "id" => is_null($product) ? $existedProducts[count($existedProducts) - 1]['id'] + 1 : $product['id'],
                 "product_id" => isset($data['product_id']) ? $data['product_id'] : '',
                 'category' => isset($data['category']) ? $data['category'] : '',
                 'brand_name' => isset($data['brand_name']) ? $data['brand_name'] : '',
@@ -58,7 +58,13 @@ class Products
                 "name" => isset($data['name']) ? $data['name'] : '',
                 "description" => isset($data['description']) ? $data['description'] : '',
                 'price' => isset($data['price']) ? $data['price'] : '',
-                'image' => isset($data['image']) ? $data['image'] : null,
+
             ];
+
+        if ($data['image'])
+            $res['image'] = $data['image'];
+        else
+            $res['image'] = $product['image'];
+        return $res;
     }
 }

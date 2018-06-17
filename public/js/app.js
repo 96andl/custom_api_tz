@@ -64,12 +64,16 @@ Vue.component('products-form', {
             var context = this;
 
 
+            var formData = new FormData;
+
 
             $.each($('#edit-product-form').serializeArray(), function () {
-                data[this.name] = this.value;
+                formData.append(this.name, this.value);
             });
 
-            axios.put('product', data)
+            formData.append('image', document.getElementById('editable_image').files[0]);
+
+            axios.post('product/update', formData)
                 .then(function (response) {
                     EventBus.$emit('productUpdated', response.data);
                     context.$emit('updated');

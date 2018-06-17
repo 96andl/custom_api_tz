@@ -66,6 +66,7 @@ class ProductsController
 
         $inputs = $request->inputs();
 
+
         Validator::validate($inputs, [
             'product_id' => 'required',
             'category' => 'required',
@@ -76,7 +77,14 @@ class ProductsController
             'price' => 'required|number',
         ]);
 
-        if ($product = Products::update($inputs['product_id'], $inputs)) {
+        if (!is_null($request->file('image')))
+            $file_path = Storage::store('/images', $request->file('image'));
+
+        $data = $request->inputs();
+
+        $data['image'] = isset($file_path) ? $file_path : null;
+
+        if ($product = Products::update($inputs['product_id'], $data)) {
             Response::send($product, null, 201);
         }
 

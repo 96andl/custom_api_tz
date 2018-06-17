@@ -15,7 +15,8 @@ class Storage
     {
         self::checkDirExist(self::storagePath() . '/' . $uploadDir);
 
-        $extention = end(explode(".", $name = $file['name']));
+        $tmp = explode(".", $name = $file['name']);
+        $extention = end($tmp);
         $file_path = $uploadDir . '/' . md5_file($file['tmp_name']) . '.' . $extention;
 
         if (move_uploaded_file($file['tmp_name'], self::storagePath() . $file_path)) {

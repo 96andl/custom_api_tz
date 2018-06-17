@@ -51,14 +51,20 @@ class BaseValidator
             'errors' => $this->errors
         ];
 
-        if (isset($_SERVER['CONTENT_TYPE']) and strpos($_SERVER['CONTENT_TYPE'], 'application/json') !== false) {
+        if (isset($_SERVER['CONTENT_TYPE'])
+            and
+            (strpos($_SERVER['CONTENT_TYPE'], 'application/json') !== false)
+            or
+            strpos($_SERVER['CONTENT_TYPE'], 'multipart/form-data; boundary') !== false) {
+
             Response::send($data, null, 422);
+
+        } else {
+
+            Session::flash('errors', $data, 'success');
+
+            redirect('/');
         }
-
-        Session::flash('errors', $data, 'success');
-
-        redirect('/');
-
     }
 
 }
