@@ -64,7 +64,7 @@ class ResourceController
             'product_name' => 'required',
             'name' => 'required',
             'description' => 'required',
-            'price' => 'required',
+            'price' => 'required|number',
         ]);
 
         if ($product = Products::update($inputs['product_id'], $inputs)) {

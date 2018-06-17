@@ -15,12 +15,12 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class FakeResourceGenerator extends Command
+class FakeProductGenerator extends Command
 {
 
     private $faker;
-    const DEFAULT_RESOURCES_COUNT = 5;
-    const RESOURCE_STUB_PATH = 'stubs/resources.json';
+    const DEFAULT_products_COUNT = 5;
+    const RESOURCE_STUB_PATH = 'stubs/products.json';
 
     public function __construct()
     {
@@ -30,10 +30,10 @@ class FakeResourceGenerator extends Command
 
     protected function configure()
     {
-        $this->setName('app:resource')
-            ->setDescription('creates a bunch of resources')
-            ->setHelp("This command allows you to create a bunch of resources")
-            ->addArgument('resources', InputArgument::OPTIONAL, "Count of resource", self::DEFAULT_RESOURCES_COUNT);
+        $this->setName('app:product')
+            ->setDescription('creates a bunch of products')
+            ->setHelp("This command allows you to create a bunch of products")
+            ->addArgument('products', InputArgument::OPTIONAL, "Count of product", self::DEFAULT_products_COUNT);
     }
 
     public function execute(InputInterface $input, OutputInterface $output, $data = [], $index = 0)
@@ -43,9 +43,9 @@ class FakeResourceGenerator extends Command
             $index = $data[count($data) - 1]->id;
         }
 
-        $resourcesCount = $input->getArgument('resources') + $index;
+        $productsCount = $input->getArgument('products') + $index;
 
-        for (; $index < $resourcesCount; $index++) {
+        for (; $index < $productsCount; $index++) {
             $data[] = array(
                 "id" => $index,
                 "product_id" => $this->faker->randomNumber,
@@ -63,6 +63,6 @@ class FakeResourceGenerator extends Command
         file_put_contents(self::RESOURCE_STUB_PATH, json_encode($data));
 
 
-        $output->writeln("created {$input->getArgument('resources')} resources");
+        $output->writeln("<info>created {$input->getArgument('products')} products</info>");
     }
 }

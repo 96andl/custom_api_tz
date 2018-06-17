@@ -14,10 +14,10 @@ use Symfony\Component\Console\Output\OutputInterface;
  * Date: 6/14/18
  * Time: 2:19 AM
  */
-class GenerateFakeUsersCommand extends Command
+class FakeUsersGenerator extends Command
 {
     private $faker;
-    const DEFAULT_RESOURCES_COUNT = 1000;
+    const DEFAULT_RESOURCES_COUNT = 2;
     const RESOURCE_STUB_PATH = 'stubs/users.json';
 
     public function __construct()
@@ -41,20 +41,21 @@ class GenerateFakeUsersCommand extends Command
             $index = $data[count($data) - 1]->id;
         }
 
-        $resourcesCount = $input->getArgument('resources') + $index;
+        $resourcesCount = $input->getArgument('users') + $index;
 
         for (; $index < $resourcesCount; $index++) {
             $data[] = (object)array(
                 "id" => $index,
-                "name" => $this->faker->name,
-                "description" => $this->faker->sentence
+                "email" => $this->faker->email,
+                "password" => password_hash('password', PASSWORD_DEFAULT)
             );
         }
 
 
         file_put_contents(self::RESOURCE_STUB_PATH, json_encode($data));
 
+        $output->writeln("<info>created {$input->getArgument('users')} users</info>");
 
-        $output->writeln("created {$input->getArgument('resources')} resources");
+
     }
 }
