@@ -56,4 +56,14 @@ class Request
         }
         throw new \Exception("Unknown http METHOD");
     }
+
+    public function file($name)
+    {
+        return $_FILES[$name]['size'] !== 0 ? $_FILES[$name] : null;
+    }
+
+    public function isFile($name)
+    {
+        return isset($_FILES[$name]);
+    }
 }

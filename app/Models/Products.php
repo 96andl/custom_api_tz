@@ -58,7 +58,7 @@ class Products
                 "name" => isset($data['name']) ? $data['name'] : '',
                 "description" => isset($data['description']) ? $data['description'] : '',
                 'price' => isset($data['price']) ? $data['price'] : '',
-                'image' => 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/58/Lionel_Messi_2017.jpg/250px-Lionel_Messi_2017.jpg'
+                'image' => isset($data['image']) ? $data['image'] : null,
             ];
     }
 }

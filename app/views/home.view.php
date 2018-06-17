@@ -39,7 +39,7 @@
                     <products-form inline-template>
                         <div class="mb-5 w-100">
                             <button class="btn btn-info" @click="visible = !visible">Create Product</button>
-                            <form class="w-100" v-if="visible" method="post" action="/product">
+                            <form class="w-100" v-if="visible" method="post" enctype="multipart/form-data" action="/product">
                                 <div class="form-group">
                                     <label for="category">Category</label>
                                     <input type="text" name="category" class="form-control" id="category">
@@ -49,23 +49,28 @@
                                     <input type="text" name="brand_name" class="form-control" id="brand_name">
                                 </div>
                                 <div class="form-group">
-                                    <label for="brand_name">Product Name</label>
+                                    <label for="product_name">Product Name</label>
                                     <input type="text" name="product_name" class="form-control" id="product_name">
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="brand_name">Name</label>
+                                    <label for="name">Name</label>
                                     <input type="text" name="name" class="form-control" id="name">
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="brand_name">Description</label>
+                                    <label for="description">Description</label>
                                     <input type="text" name="description" class="form-control" id="description">
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="brand_name">Price</label>
+                                    <label for="price">Price</label>
                                     <input type="text" name="price" class="form-control" id="price">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="image">Price</label>
+                                    <input type="file" name="image" class="form-control" id="image">
                                 </div>
                                 <?php if (!is_null($errors = Session::getFlash('errors'))): ?>
                                     <div class="alert alert-danger">
@@ -93,7 +98,7 @@
                                 <h2>{{product.brand_name}} </h2>
                                 <p> {{product.description}} </p>
                                 <p>
-                                    <img :src="product.image" alt="" class="w-100">
+                                    <img :src="'/storage'+product.image" alt="" class="w-100" v-if="product.image !== null">
                                     <button class="btn btn-success" id="show-modal" @click="showEditProductModal(index)">Show Modal</button>
                                     <button class="btn btn-danger" href="#" @click="remove(index,product.id)" role="button">
                                         Delete

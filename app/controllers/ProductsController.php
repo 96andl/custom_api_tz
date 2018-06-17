@@ -12,6 +12,7 @@ namespace App\controllers;
 use App\Models\Products;
 use Core\Request;
 use Core\Response;
+use Core\Storage;
 use Core\Validator;
 
 class ProductsController
@@ -39,7 +40,15 @@ class ProductsController
             'price' => 'required|number',
         ]);
 
-        if (Products::save($request->inputs())) {
+
+        if (!is_null($request->file('image')))
+            $file_path = Storage::store('/images', $request->file('image'));
+
+        $data = $request->inputs();
+
+        $data['image'] = isset($file_path) ? $file_path : null;
+
+        if (Products::save($data)) {
             return redirect('/');
         }
 
