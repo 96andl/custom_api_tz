@@ -53,6 +53,23 @@ class ResourceController
 
     public function update()
     {
+        $request = new Request();
+
+        $inputs = $request->inputs();
+
+        Validator::validate($inputs, [
+            'product_id' => 'required',
+            'category' => 'required',
+            'brand_name' => 'required',
+            'product_name' => 'required',
+            'name' => 'required',
+            'description' => 'required',
+            'price' => 'required',
+        ]);
+
+        if ($product = Products::update($inputs['product_id'], $inputs)) {
+            Response::send($product, null, 201);
+        }
 
     }
 

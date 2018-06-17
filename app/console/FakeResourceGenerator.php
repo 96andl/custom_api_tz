@@ -46,7 +46,7 @@ class FakeResourceGenerator extends Command
         $resourcesCount = $input->getArgument('resources') + $index;
 
         for (; $index < $resourcesCount; $index++) {
-            $data[] = (object)array(
+            $data[] = array(
                 "id" => $index,
                 "product_id" => $this->faker->randomNumber,
                 'category' => $this->faker->name,

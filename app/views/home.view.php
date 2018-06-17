@@ -16,14 +16,10 @@
 <body>
 
 
-include 'header.php' ?>
 <div id="app">
     <div id="application-wrapper">
 
-
-        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-            <a class="navbar-brand" href="#">Home</a>
-        </nav>
+        <?php include 'header.php' ?>
 
         <main role="main">
             <div class="jumbotron">
@@ -41,7 +37,7 @@ include 'header.php' ?>
             <div class="container">
                 <div class="row">
                     <products-form inline-template>
-                        <div class="mb-5">
+                        <div class="mb-5 w-100">
                             <button class="btn btn-info" @click="visible = !visible">Create Product</button>
                             <form class="w-100" v-if="visible" method="post" action="/resource">
                                 <div class="form-group">
@@ -93,15 +89,13 @@ include 'header.php' ?>
                     <!-- Example row of columns -->
                     <div id="items-wrapper" class="row">
                         <transition-group name="product" tag="div" class="row">
-                            <div class="col-md-4" v-for="(product, index) in products" :key="product.id"
-                                 class="product">
+                            <div class="col-md-4 product" v-for="(product, index) in products" :key="product.id">
                                 <h2>{{product.brand_name}} </h2>
                                 <p> {{product.description}} </p>
                                 <p>
                                     <img :src="product.image" alt="" class="w-100">
-                                    <a class="btn btn-secondary" href="#" role="button">View details</a>
-                                    <button class="btn btn-danger" href="#" @click="remove(index,product.id)"
-                                            role="button">
+                                    <button class="btn btn-success" id="show-modal" @click="showEditProductModal(index)">Show Modal</button>
+                                    <button class="btn btn-danger" href="#" @click="remove(index,product.id)" role="button">
                                         Delete
                                     </button>
                                 </p>
@@ -114,6 +108,7 @@ include 'header.php' ?>
         </main>
     </div>
 
+    <?php include('modal.view.php') ?>
 </div>
 
 <?php include 'footer.php' ?>

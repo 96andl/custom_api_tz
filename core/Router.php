@@ -45,6 +45,16 @@ class Router
         $this->routes['DELETE'][$uri] = $controller;
     }
 
+    public function put($uri, $controller)
+    {
+        $this->routes['PUT'][$uri] = $controller;
+    }
+
+    public function patch($uri, $controller)
+    {
+        $this->routes['PATCH'][$uri] = $controller;
+    }
+
     public function direct($uri, $requestMethod)
     {
         if (array_key_exists($uri, $this->routes[$requestMethod])) {
