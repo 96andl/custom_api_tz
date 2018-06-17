@@ -44,4 +44,10 @@ class Session
 
         return null;
     }
+
+    public static function delete($name)
+    {
+        if (isset($_SESSION[$name]))
+            unset($_SESSION[$name]);
+    }
 }

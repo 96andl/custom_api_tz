@@ -11,11 +11,11 @@ namespace App\Models;
 
 class Products
 {
-    const RESOURCE_STUB_PATH = '../stubs/resources.json';
+    const RESOURCE_STUB_PATH = '../stubs/products.json';
 
     public static function save($data)
     {
-        $existedProducts = json_decode(file_get_contents(Products::RESOURCE_STUB_PATH), true);
+        $existedProducts = (array)json_decode(file_get_contents(Products::RESOURCE_STUB_PATH), true);
         $product = self::changeProduct($existedProducts, $data);
         array_push($existedProducts, $product);
         file_put_contents(Products::RESOURCE_STUB_PATH, json_encode($existedProducts));

@@ -68,7 +68,7 @@ Vue.component('products-form', {
                 data[this.name] = this.value;
             });
 
-            axios.put('resource', data)
+            axios.put('product', data)
                 .then(function (response) {
                     EventBus.$emit('productUpdated', response.data);
                     context.$emit('updated');
@@ -94,7 +94,7 @@ Vue.component('products', {
     created: function () {
         var context = this;
         $.ajax({
-            url: "resource",
+            url: "product",
             method: "GET",
             success: function (response) {
                 context.products = response;
@@ -126,7 +126,7 @@ Vue.component('products', {
 
         remove: function (index, id) {
             var context = this;
-            axios.delete('resource', {
+            axios.delete('product', {
                 data:
                     {id: id}
             })

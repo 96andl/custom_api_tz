@@ -19,7 +19,7 @@ use Core\Session;
                         <slot name="body">
                             <products-form inline-template @close="showModal = false" @updated="showModal = false">
                                 <div class="mb-5 w-100">
-                                    <form class="w-100" method="post" action="/resource" id="edit-product-form">
+                                    <form class="w-100" method="post" action="/product" id="edit-product-form">
                                         <input type="hidden" name="product_id" :value="product_id">
                                         <div class="form-group">
                                             <label for="category">Category</label>

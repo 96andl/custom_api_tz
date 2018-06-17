@@ -18,6 +18,8 @@ class Router
         'PATCH'
     ];
 
+    protected $currentRoute;
+
     public static function load($file)
     {
         $router = new static;
@@ -33,31 +35,36 @@ class Router
     public function get($uri, $controller)
     {
         $this->routes['GET'][$uri] = $controller;
+        $this->currentRoute = $uri;
         return $this;
     }
 
     public function post($uri, $controller)
     {
         $this->routes['POST'][$uri] = $controller;
+        $this->currentRoute = $uri;
         return $this;
     }
 
     public function delete($uri, $controller)
     {
         $this->routes['DELETE'][$uri] = $controller;
+        $this->currentRoute = $uri;
         return $this;
     }
 
     public function put($uri, $controller)
     {
         $this->routes['PUT'][$uri] = $controller;
+        $this->currentRoute = $uri;
         return $this;
     }
 
     public function patch($uri, $controller)
     {
         $this->routes['PATCH'][$uri] = $controller;
-        return $this;
+        $this->currentRoute = $uri;
+
     }
 
     public function direct($uri, $requestMethod)
@@ -83,7 +90,9 @@ class Router
 
     public function middleware($name)
     {
-        $middleware = new Middleware();
-        $middleware->$name();
+        if (Request::uri() === $this->currentRoute) {
+            $middleware = new Middleware();
+            $middleware->$name();
+        }
     }
 }

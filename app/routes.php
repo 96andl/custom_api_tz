@@ -9,9 +9,13 @@
 $controllersPath = '\\App\\controllers\\';
 
 $router->get('', "{$controllersPath}IndexController@home")->middleware('auth');
-$router->get('resource', "{$controllersPath}ResourceController@index");
-$router->delete('resource', "{$controllersPath}ResourceController@destroy");
-$router->post('resource', "{$controllersPath}ResourceController@store");
-$router->put('resource', "{$controllersPath}ResourceController@update");
+$router->get('product', "{$controllersPath}ProductsController@index");
+$router->delete('product', "{$controllersPath}ProductsController@destroy");
+$router->post('product', "{$controllersPath}ProductsController@store");
+$router->put('product', "{$controllersPath}ProductsController@update");
+
 $router->get('login', "{$controllersPath}LoginController@index");
 $router->post('login', "{$controllersPath}LoginController@login");
+$router->get('logout', "{$controllersPath}LoginController@logout");
+$router->get('register', "{$controllersPath}RegisterController@index");
+$router->post('register', "{$controllersPath}RegisterController@register");

@@ -26,4 +26,28 @@ class Auth
         }
         return true;
     }
+
+    public static function login($user, $redirect_uri = '/')
+    {
+        Session::set($user['password'], $user['id']);
+        setcookie('auth', $user['password'], time() + 60 * 60 * 24 * 30);
+        redirect($redirect_uri);
+    }
+
+    public static function logout($redirect_uri = '/')
+    {
+        Session::delete(Auth::user()['password']);
+        if (isset($_COOKIE['auth'])) {
+            setcookie("auth", "", time() - 3600);
+        }
+
+        redirect($redirect_uri);
+    }
+
+    public static function user()
+    {
+        $auth_hash = $_COOKIE['auth'];
+
+        return $user = Users::findByHash($auth_hash);
+    }
 }

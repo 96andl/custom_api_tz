@@ -14,13 +14,13 @@ use Core\Request;
 use Core\Response;
 use Core\Validator;
 
-class ResourceController
+class ProductsController
 {
     public function index()
     {
         header('Content-Type: application/json');
-        $resources = file_get_contents('../stubs/resources.json');
-        echo $resources;
+        $products = file_get_contents('../stubs/products.json');
+        echo $products;
     }
 
 

@@ -15,9 +15,14 @@ class Users
 {
     const USERS_STUB_PATH = '../stubs/users.json';
 
-    public function find()
+    public static function save($data)
     {
+        $existedUsers = (array) json_decode(file_get_contents(Users::USERS_STUB_PATH), true);
 
+        $user = self::changeUser($existedUsers, $data);
+        array_push($existedUsers, $user);
+        file_put_contents(Users::USERS_STUB_PATH, json_encode($existedUsers));
+        return $user;
     }
 
     public static function findByEmail($email)
@@ -48,5 +53,15 @@ class Users
 
         return false;
 
+    }
+
+    private static function changeUser($existedUsers, $data)
+    {
+        return
+            [
+                "id" => $existedUsers[count($existedUsers) - 1]['id'] + 1,
+                "email" => isset($data['email']) ? $data['email'] : '',
+                'password' => isset($data['password']) ? password_hash($data['password'], PASSWORD_DEFAULT) : '',
+            ];
     }
 }
