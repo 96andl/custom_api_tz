@@ -28,13 +28,17 @@ Vue.component('products-form', {
             product_name: null,
             name: null,
             description: null,
-            price: null
+            price: null,
+            errorMessage: null,
+            errors: []
         }
     },
 
     created: function () {
         var context = this;
         EventBus.$on('showEditProductModal', function (index) {
+            context.errors = [];
+            context.errorMessage = null;
             context.initializeInputs(index);
         });
 
@@ -57,6 +61,9 @@ Vue.component('products-form', {
 
             var data = {};
             var context = this;
+
+
+
             $.each($('#edit-product-form').serializeArray(), function () {
                 data[this.name] = this.value;
             });
@@ -67,7 +74,11 @@ Vue.component('products-form', {
                     context.$emit('updated');
                 })
                 .catch(function (error) {
-                    console.error(error);
+                    console.log(error.response);
+                    if (error.response.status === 422) {
+                        context.errors = error.response.data.errors;
+                        context.errorMessage = error.response.message;
+                    }
                 });
         }
 

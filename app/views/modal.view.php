@@ -3,7 +3,7 @@
 use Core\Session;
 
 ?>
-<modal @close="showModal = false" inline-template>
+<modal inline-template>
     <transition name="modal">
         <div class="modal-mask" v-show="showModal">
             <div class="modal-wrapper">
@@ -17,7 +17,7 @@ use Core\Session;
 
                     <div class="modal-body">
                         <slot name="body">
-                            <products-form inline-template @close="$emit('close')">
+                            <products-form inline-template @close="showModal = false" @updated="showModal = false">
                                 <div class="mb-5 w-100">
                                     <form class="w-100" method="post" action="/resource" id="edit-product-form">
                                         <input type="hidden" name="product_id" :value="product_id">
@@ -66,6 +66,11 @@ use Core\Session;
                                         <button type="submit" class="btn btn-primary" @click.prevent="update">Edit
                                         </button>
                                     </form>
+                                    <div class="alert alert-danger" v-if="errors.length > 0">
+                                        <ul>
+                                            <li v-for="(error, index) in errors" :key="index">{{error}}</li>
+                                        </ul>
+                                    </div>
                                 </div>
                             </products-form>
                         </slot>
