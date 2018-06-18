@@ -29,6 +29,8 @@ class LoginController
             Auth::login($user);
         }
 
+        redirect('/login');
+
     }
 
     public function logout()
